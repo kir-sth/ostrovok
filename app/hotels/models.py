@@ -1,12 +1,8 @@
 from sqlalchemy import JSON
-from sqlalchemy.orm import Mapped, mapped_column, relationship
-from typing import Optional, TYPE_CHECKING
+from sqlalchemy.orm import Mapped, mapped_column
+from typing import Optional
 
 from app.database import Base
-
-
-if TYPE_CHECKING:
-    from hotels.rooms.models import Rooms
 
 
 class Hotels(Base):
@@ -18,8 +14,3 @@ class Hotels(Base):
     services: Mapped[list[str]] = mapped_column(JSON)
     rooms_quantity: Mapped[int]
     image_id: Mapped[Optional[int]]
-
-    rooms: Mapped[list["Rooms"]] = relationship(back_populates="hotel")
-
-    def __str__(self):
-        return f"Отель {self.name} {self.location[:30]}"

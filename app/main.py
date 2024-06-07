@@ -1,9 +1,12 @@
 import uvicorn
 from fastapi import FastAPI, Depends
-from schemas import HotelsSearchArgs, HotelSchema, BookingSchema
+
+from app.schemas import HotelsSearchArgs, HotelSchema, BookingSchema
+from app.bookings.router import router as router_bookings
 
 
 app = FastAPI()
+app.include_router(router_bookings)
 
 
 @app.get("/hotels")
