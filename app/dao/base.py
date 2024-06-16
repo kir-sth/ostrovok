@@ -1,4 +1,4 @@
-from sqlalchemy import Select
+from sqlalchemy import insert, select
 
 from app.database import async_session_maker
 
@@ -9,20 +9,27 @@ class BaseDAO:
     @classmethod
     async def find_by_id(cls, model_id: int):
         async with async_session_maker() as session:
-            query = Select(cls.model).filter_by(id=model_id)
+            query = select(cls.model).filter_by(id=model_id)
             result = await session.execute(query)
             return result.scalar_one_or_none()
 
     @classmethod
     async def find_one_or_none(cls, **filer_by):
         async with async_session_maker() as session:
-            query = Select(cls.model).filter_by(**filer_by)
+            query = select(cls.model).filter_by(**filer_by)
             result = await session.execute(query)
             return result.scalar_one_or_none()
 
     @classmethod
-    async def find_all(cls):
+    async def find_all(cls, **filer_by):
         async with async_session_maker() as session:
-            query = Select(cls.model.__table__.columns)
+            query = select(cls.model.__table__.columns).filter_by(**filer_by)
             result = await session.execute(query)
             return result.mappings().all()
+        
+    @classmethod
+    async def add(cls, **data):
+        async with async_session_maker() as session:
+            query = insert(cls.model).values(**data)
+            await session.execute(query)
+            await session.commit()

@@ -11,7 +11,9 @@ class Settings(BaseSettings):
     PG_DB_NAME: str
     PG_DB_DRIVER: str
     PG_DB_URL: str
-
+    SECRET_KEY: str
+    ALGORITHM: str
+    
     model_config = SettingsConfigDict(env_file=".env")
 
 
