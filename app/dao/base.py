@@ -26,7 +26,7 @@ class BaseDAO:
             query = select(cls.model.__table__.columns).filter_by(**filer_by)
             result = await session.execute(query)
             return result.mappings().all()
-        
+
     @classmethod
     async def add(cls, **data):
         async with async_session_maker() as session:

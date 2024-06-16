@@ -1,11 +1,13 @@
-import os.path
+import os
 import sys
-sys.path.append(os.path.join(os.path.dirname(os.path.realpath(__file__)), os.pardir))
 
-from fastapi import FastAPI
+path2dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), os.pardir)
+sys.path.append(path2dir)
 
-from app.bookings.router import router as router_bookings
-from app.users.router import router_auth, router_users
+from fastapi import FastAPI  # noqa: E402
+
+from app.bookings.router import router as router_bookings  # noqa: E402
+from app.users.router import router_auth, router_users  # noqa: E402
 
 
 app = FastAPI()

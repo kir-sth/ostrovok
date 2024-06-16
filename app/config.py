@@ -1,6 +1,6 @@
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
- 
+
 class Settings(BaseSettings):
     FASTAPI_HOST: str
     FASTAPI_PORT: int
@@ -13,7 +13,7 @@ class Settings(BaseSettings):
     PG_DB_URL: str
     SECRET_KEY: str
     ALGORITHM: str
-    
+
     model_config = SettingsConfigDict(env_file=".env")
 
 

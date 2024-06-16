@@ -7,16 +7,21 @@ from alembic import context
 
 from app.config import settings
 from app.database import Base
-from app.bookings.models import Bookings
-from app.hotels.models import Hotels
-from app.hotels.rooms.models import Rooms
-from app.users.models import Users
+from app.bookings.models import Bookings  # noqa: F401
+from app.hotels.models import Hotels  # noqa: F401
+from app.hotels.rooms.models import Rooms  # noqa: F401
+from app.users.models import Users  # noqa: F401
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
 
-config.set_main_option("sqlalchemy.url", f"{settings.PG_DB_URL}?async_fallback=True")
+config.set_main_option(
+    name="sqlalchemy.url",
+    value=f"{settings.PG_DB_URL}?async_fallback=True"
+)
+
+config.se
 
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.
