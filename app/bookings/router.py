@@ -1,8 +1,7 @@
 from fastapi import APIRouter
-from sqlalchemy import Select
 
-from app.database import async_session_maker
-from app.bookings.models import Bookings
+from app.bookings.dao import BookingDAO
+from app.bookings.schemas import SBookings
 
 
 router = APIRouter(
@@ -11,12 +10,5 @@ router = APIRouter(
 )
 
 @router.get("")
-async def get_bookings():
-    async with async_session_maker() as session:
-        query = Select(Bookings)
-        result = await session.execute(query)
-        print(result)
-
-@router.get("/{booking_id}")
-def get_booking(booking_id):
-    pass
+async def get_bookings() -> list[SBookings]:
+    return await BookingDAO.find_all()
