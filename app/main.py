@@ -7,6 +7,8 @@ sys.path.append(path2dir)
 from fastapi import FastAPI  # noqa: E402
 
 from app.bookings.router import router as router_bookings  # noqa: E402
+from app.hotels.router import router as router_hotels  # noqa: E402
+from app.hotels.rooms.router import router as router_rooms  # noqa: E402
 from app.users.router import router_auth, router_users  # noqa: E402
 
 
@@ -14,6 +16,8 @@ app = FastAPI()
 
 app.include_router(router_auth)
 app.include_router(router_users)
+app.include_router(router_hotels)
+app.include_router(router_rooms)
 app.include_router(router_bookings)
 
 
