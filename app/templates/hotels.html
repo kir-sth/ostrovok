@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Набронировал</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .hotel-card {
+            display: flex;
+            flex-direction: column;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+        .hotel-card img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+        .hotel-info {
+            padding: 20px;
+        }
+        .hotel-info h1 {
+            margin: 0;
+            font-size: 24px;
+            color: #333;
+        }
+        .hotel-info h4 {
+            margin: 5px 0 15px;
+            font-size: 18px;
+            color: #666;
+        }
+        .hotel-info p {
+            margin: 10px 0;
+            color: #666;
+        }
+        .room-card {
+            background-color: #fafafa;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        .room-card h2 {
+            margin: 0;
+            font-size: 20px;
+        }
+        .room-card p {
+            margin: 5px 0;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        {% for hotel in hotels %}
+        <div class="hotel-card">
+            <img src="{{ url_for('static', path='images/' + hotel.image_id|string + '.webp') }}" alt="Фото отеля">
+            <div class="hotel-info">
+                <h1>{{ hotel.name }}</h1>
+                <h4>{{ hotel.location }}</h4>
+                <p>Количество комнат: {{ hotel.rooms_quantity }}</p>
+                <p>Услуги: {{ hotel.services | join(', ') }}</p>
+            </div>
+            <div class="hotel-rooms">
+                {% for room in hotel.rooms %}
+                <div class="room-card">
+                    <h2>{{ room.name }}</h2>
+                    <p>{{ room.description }}</p>
+                    <p>Цена: {{ room.price }} руб.</p>
+                    <p>Услуги: {{ room.services | join(', ') }}</p>
+                    <p>Количество: {{ room.quantity }}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
