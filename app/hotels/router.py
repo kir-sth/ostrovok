@@ -1,6 +1,8 @@
 from datetime import date, datetime, timedelta
 from typing import Optional
+
 from fastapi import APIRouter, Query, status
+from fastapi_cache.decorator import cache
 
 from app.exceptions import (
     CannotBookHotelForLongPeriodException,
@@ -17,6 +19,7 @@ router = APIRouter(
 
 
 @router.get("{location}", status_code=status.HTTP_200_OK)
+@cache(expire=30)
 async def get_hotels_by_location_and_time(
     location: str,
     date_from: date = Query(

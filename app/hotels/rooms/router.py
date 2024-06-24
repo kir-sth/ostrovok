@@ -1,5 +1,7 @@
 from datetime import date, datetime, timedelta
+
 from fastapi import Query, status
+from fastapi_cache.decorator import cache
 
 from app.hotels.rooms.dao import RoomDAO
 from app.hotels.rooms.schemas import SRoomInfo
@@ -7,6 +9,7 @@ from app.hotels.router import router
 
 
 @router.get("/{hotel_id}/rooms", status_code=status.HTTP_200_OK)
+@cache(expire=30)
 async def get_rooms_by_time(
     hotel_id: int,
     date_from: date = Query(

@@ -1,4 +1,5 @@
 from fastapi import APIRouter, Depends, status
+from fastapi_cache.decorator import cache
 from pydantic import TypeAdapter
 
 from app.bookings.dao import BookingDAO
@@ -15,6 +16,7 @@ router = APIRouter(
 
 
 @router.get("", status_code=status.HTTP_200_OK)
+@cache(expire=30)
 async def get_bookings(
     user: Users = Depends(get_current_user)
 ) -> list[SBookingsInfo]:
